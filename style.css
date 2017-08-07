@@ -24,6 +24,10 @@ body{
 	cursor: pointer;
 }
 
+.vid {
+	background-color: #eee;
+}
+
 .a {
 
 /*display: none;*/
