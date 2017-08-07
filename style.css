@@ -1,0 +1,109 @@
+body{
+	background-color: white;
+	height:100%;
+	width:100%;
+	margin:0;
+	padding:0;
+
+	/*The base font-size and font-family*/
+	font: 100% 'Roboto', sans-serif;
+}
+
+/*.portfolio figure {
+	margin: 0;
+}*/
+
+.responsive-media {
+	/* Needed to avoid unnecessary white-space below images and videos in all browsers. */
+	display: block;
+
+	max-width: 100%;
+	margin: 0 auto;
+	position: relative;
+	z-index: 2;
+}
+
+.a {
+
+/*display: none;*/
+/*width: 200px;*/
+   /*width: 100%;*/
+/*height:auto;*/
+/*background-color:white;*/
+/*position:relative;*/
+/*z-index: 10;*/
+
+}
+
+#container {
+	position: relative;
+	/*height:100%;*/
+	/*width:100%;*/
+	/*z-index: 10;*/
+}
+
+#info{
+	display: block;
+	/*transition: width 2s;*/
+	/*position:fixed;  */
+   text-align: center;
+	/*z-index: 10;*/
+	/*transition: width 2s;*/
+	/*left: calc(50% - 258.5px);
+	top: 100px;*/
+	/*font-family: 'Roboto', sans-serif;*/
+	/*font-size: 75px;*/
+	font-size: 1.3em;
+	font-weight: normal;
+	color: #242a2d;
+
+	/* 1em is equal to this element's font-size. 1em of margins above and below the element, 0 to its left and right */
+	margin: 1em 0;
+}
+
+.project-container {
+	margin: 0;
+}
+
+.description-wrapper {
+	/*padding: 0.6em 0.8em;*/
+}
+
+.description{
+	/*display: none;*/
+	/*visibility: visible;*/
+	/*position:fixed;*/
+	/*z-index: 20;*/
+	/*font-family: 'Roboto', sans-serif;*/
+	font-size: 1.2em;
+	/*padding: 0.6em 0.8em;*/
+	padding: 0 0.8em;
+	margin: 0;
+	/*spacing in between lines of text*/
+	line-height: 1.2;
+	color: #242a2d;
+
+	/*transition: padding 0s ease-out 0.4s;*/
+}
+.description:after, .description:before {
+	content: "";
+	display: block;
+	height: 15px;
+}
+
+.description.hidden {
+	/*display: none;*/
+	/*padding: 0;*/
+	max-height: 0;
+	transition: max-height 0.2s linear;
+	overflow: hidden;
+}
+.description.visible {
+	/*display: block;*/
+	/*padding: 0.6em 0.8em;*/
+
+	/* hange this number to whatever your tallest description is. Too low and words will get cut off. Too high and the transition won't be smooth. */
+	transition: max-height 0.4s linear;
+	max-height: 250px;
+	/*max-height: 100000px;*/
+}
