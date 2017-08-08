@@ -1,14 +1,5 @@
 $(document).ready(function() {
 
-	// $("body").click(function() {
-	//     $("#info").css("left", "20px");
-	//     $("#info").css("top", "20px");
-	//     $("#info").css("display", "inline");
-	//     $("#container").css("font-size", "40px");
-	//     $("#container").css("left", "20px");
-	//     $("#container").css("top", "90px");
-	// });
-
 	$("#splashContainer").click(function() {
 		$("#splashContainer").css("display", "none");
 		$("body").removeClass("splash-body");
@@ -33,20 +24,13 @@ $(document).ready(function() {
 	//numberOfMatches is important, otherwise a new version of animate() gets called every time the viewport is above 992 pixels.
 	var numberOfMatches;
 
-	// if (isDesktopVersion) {
-	// 	numberOfMatches = 1;
-	// } else {
-	// 	numberOfMatches = 0;
-	// }
 	(isDesktopVersion) ? numberOfMatches = 1 : numberOfMatches = 0;
 
 	toAnimateOrNot(isDesktopVersion, numberOfMatches);
 
 	$(window).resize(function() {
 		isDesktopVersion = mediaQuery();
-		// console.log(numberOfMatches);
-		// console.log(isDesktopVersion);
-		// var isDesktopVersion = mediaQuery();
+
 		(isDesktopVersion) ? numberOfMatches++ : numberOfMatches = 0;
 
 		toAnimateOrNot(isDesktopVersion, numberOfMatches);
@@ -69,10 +53,6 @@ function makeNewPosition($container, el) {
     var nh = Math.floor(Math.random() * h);
     var nw = Math.floor(Math.random() * w);
 
-	if ($container.hasClass("center-hover") || el.hasClass("center-hover")) {
-		return;
-	}
-
     return [nh, nw];
 }
 
@@ -82,8 +62,8 @@ function animateDiv($target) {
     var speed = calcSpeed([oldq.top, oldq.left], newq);
 	var isDesktopVersion = mediaQuery();
 
-		// console.log($target);
 	if (isDesktopVersion) {
+		console.log("animateDiv was called recursively")
 		$target.animate({
 	        top: newq[0],
 	        left: newq[1]
@@ -131,18 +111,12 @@ function mobileListeners() {
 }
 
 function desktopListeners() {
-	// console.log("lul");
-	// console.log(numberOfMatches);
-
 	// Removes the click event listener from all of the projects, so there's no conflict with the new hover listener
 	$(".responsive-media").off();
 	// console.log('desktoplisters()')
 	$(".responsive-media").each(function() {
 		$(this).mouseenter(function() {
-			$(this).addClass("full-width-project");
-			// console.log($(this).hasClass("vid"));
 			if ($(this).hasClass("vid")) {
-				// console.log("testing");
 				this.play();
 			}
 
@@ -154,35 +128,28 @@ function desktopListeners() {
 			var top = $(this).parent().parent().height()/2 - $(this).parent().height()/2 + 'px';
 			var left = $(this).parent().parent().width()/2 - $(this).parent().width()/2 + 'px';
 
-			console.log($(this).parent().height());
-			console.log(top);
-			console.log(left);
-
-			// $(this).parent().css("top", "0");
 			$(this).parent().css("left", "0");
-			// $(this).removeClass("");
 
 			$(this).next(".description").removeClass("hidden");
 			$(this).next(".description").addClass("visible");
 
 		});
 
-		$(this).mouseleave(function() {
-			$(this).removeClass("full-width-project");
-
-			if ($(this).hasClass("vid")) {
+		$(this).parent().mouseleave(function() {
+			if ($(this).children(".vid").length === 1) {
+				console.log("whoa");
 				// console.log("testing");
-				this.pause();
+				$(this).children(".vid")[0].pause();
 			}
 
 			// $(this).parent().addClass("floating-projects");
-			// $(this).addClass("");
-			$(this).parent().removeClass("center-hover");
 
-			animateDiv($(this).parent());
+			$(this).removeClass("center-hover");
 
-			$(this).next(".description").removeClass("visible");
-			$(this).next(".description").addClass("hidden");
+			animateDiv($(this));
+
+			$(this).children(".responsive-media").next(".description").removeClass("visible");
+			$(this).children(".responsive-media").next(".description").addClass("hidden");
 
 		});
 	});
@@ -192,7 +159,7 @@ function toAnimateOrNot(isDesktopVersion, numberOfMatches) {
 	if (isDesktopVersion && numberOfMatches === 1) {
 		// console.log("hellooo");
 		$("#container").addClass("fixed-container");
-		var theTimeout = setTimeout(function() {
+		// var theTimeout = setTimeout(function() {
 
 		$(".project-container").addClass("floating-projects");
 
@@ -211,14 +178,12 @@ function toAnimateOrNot(isDesktopVersion, numberOfMatches) {
 		animateDiv($('#l'));
 
 		desktopListeners();
-	  }, 1000);
+	//   }, 1000);
 	}
 
   if (!isDesktopVersion) {
-	//   numberOfMatches = 0;
-	  clearTimeout(theTimeout);
+	//   clearTimeout(theTimeout);
 
-	//   console.log("officially not a desktop version");
 	  $("#container").removeClass("fixed-container");
 
 	  $(".responsive-media").off();
