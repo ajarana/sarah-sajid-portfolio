@@ -63,11 +63,15 @@ function isInView(el) {
 function makeNewPosition($container, el) {
     // Get viewport dimensions (remove the dimension of the div)
 
-	var h = $container.height()/1.5 - el.height();
+	var h = $container.height() - el.height();
     var w = $container.width() - el.width();
 
     var nh = Math.floor(Math.random() * h);
     var nw = Math.floor(Math.random() * w);
+
+	if ($container.hasClass("center-hover") || el.hasClass("center-hover")) {
+		return;
+	}
 
     return [nh, nw];
 }
@@ -78,7 +82,7 @@ function animateDiv($target) {
     var speed = calcSpeed([oldq.top, oldq.left], newq);
 	var isDesktopVersion = mediaQuery();
 
-		console.log($target);
+		// console.log($target);
 	if (isDesktopVersion) {
 		$target.animate({
 	        top: newq[0],
@@ -145,7 +149,17 @@ function desktopListeners() {
 			$(this).parent().addClass("center-hover");
 
 			// $(this).parent().removeClass("floating-projects");
-			// $(this).parent().stop();
+			$(this).parent().stop();
+
+			var top = $(this).parent().parent().height()/2 - $(this).parent().height()/2 + 'px';
+			var left = $(this).parent().parent().width()/2 - $(this).parent().width()/2 + 'px';
+
+			console.log($(this).parent().height());
+			console.log(top);
+			console.log(left);
+
+			// $(this).parent().css("top", "0");
+			$(this).parent().css("left", "0");
 			// $(this).removeClass("");
 
 			$(this).next(".description").removeClass("hidden");
@@ -165,6 +179,8 @@ function desktopListeners() {
 			// $(this).addClass("");
 			$(this).parent().removeClass("center-hover");
 
+			animateDiv($(this).parent());
+
 			$(this).next(".description").removeClass("visible");
 			$(this).next(".description").addClass("hidden");
 
@@ -174,7 +190,7 @@ function desktopListeners() {
 
 function toAnimateOrNot(isDesktopVersion, numberOfMatches) {
 	if (isDesktopVersion && numberOfMatches === 1) {
-		console.log("hellooo");
+		// console.log("hellooo");
 		$("#container").addClass("fixed-container");
 		var theTimeout = setTimeout(function() {
 
@@ -184,9 +200,9 @@ function toAnimateOrNot(isDesktopVersion, numberOfMatches) {
 		animateDiv($('#a'));
 		animateDiv($('#b'));
 		animateDiv($('#c'));
-		animateDiv($('#d'));
+		// animateDiv($('#d'));
 		animateDiv($('#e'));
-		animateDiv($('#f'));
+		// animateDiv($('#f'));
 		animateDiv($('#g'));
 		animateDiv($('#h'));
 		animateDiv($('#i'));
@@ -202,7 +218,7 @@ function toAnimateOrNot(isDesktopVersion, numberOfMatches) {
 	//   numberOfMatches = 0;
 	  clearTimeout(theTimeout);
 
-	  console.log("officially not a desktop version");
+	//   console.log("officially not a desktop version");
 	  $("#container").removeClass("fixed-container");
 
 	  $(".responsive-media").off();
