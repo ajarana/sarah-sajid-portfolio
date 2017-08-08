@@ -75,6 +75,7 @@ body{
 
 #splashContainer .name {
 	font-size: 80px;
+	text-align: center;
 }
 
 #info{
@@ -190,7 +191,7 @@ body{
 	width: 100%;
 	margin: 0 auto;
 	background-color: rgba(0, 0, 0, 0.65);
-	padding: 25px 0;
+	padding: 45px 0;
 	/*height: 40vh;*/
 }
 

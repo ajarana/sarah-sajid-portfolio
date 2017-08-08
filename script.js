@@ -112,6 +112,7 @@ function mobileListeners() {
 
 function desktopListeners() {
 	// Removes the click event listener from all of the projects, so there's no conflict with the new hover listener
+	$(".project-container").off();
 	$(".responsive-media").off();
 	// console.log('desktoplisters()')
 	$(".responsive-media").each(function() {
@@ -186,6 +187,7 @@ function toAnimateOrNot(isDesktopVersion, numberOfMatches) {
 
 	  $("#container").removeClass("fixed-container");
 
+	  $(".project-container").off();
 	  $(".responsive-media").off();
 
 	  $(".project-container").stop(true, true);
