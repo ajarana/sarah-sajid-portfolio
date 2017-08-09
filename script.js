@@ -11,7 +11,11 @@ $(document).ready(function() {
 		$(".vid").each(function() {
 			if (!isInView(this) && !this.paused) {
 				this.pause();
+			}
+	  	});
 
+		$(".responsive-media").each(function() {
+			if (!isInView(this)) {
 				$(this).next(".description").removeClass("visible");
 				$(this).next(".description").addClass("hidden");
 			}
@@ -52,7 +56,7 @@ function makeNewPosition($container, el) {
 
     var nh = Math.floor(Math.random() * h);
     var nw = Math.floor(Math.random() * w);
-
+	console.log([nh, nw])
     return [nh, nw];
 }
 
@@ -63,7 +67,7 @@ function animateDiv($target) {
 	var isDesktopVersion = mediaQuery();
 
 	if (isDesktopVersion) {
-		console.log("animateDiv was called recursively")
+		// console.log("animateDiv was called recursively")
 		$target.animate({
 	        top: newq[0],
 	        left: newq[1]
@@ -80,6 +84,7 @@ function calcSpeed(prev, next) {
     var greatest = x > y ? x : y;
 
     var speedModifier = 0.065;
+	// var speedModifier = 0.09;
 
     var speed = Math.ceil(greatest / speedModifier);
 
@@ -92,14 +97,14 @@ function mediaQuery() {
 
 function mobileListeners() {
 	$(".responsive-media").click(function() {
-	  if ($(this).next(".description").hasClass("hidden")) {
+		if ($(this).next(".description").hasClass("hidden")) {
 		  $(this).next(".description").removeClass("hidden");
 		  $(this).next(".description").addClass("visible");
-	  } else {
+	  	} else {
 		  $(this).next(".description").removeClass("visible");
 		  $(this).next(".description").addClass("hidden");
-	  }
-	  })
+	  	}
+	 })
 
 	$(".vid").click(function() {
 	  if (this.paused) {
@@ -115,7 +120,21 @@ function desktopListeners() {
 	$(".project-container").off();
 	$(".responsive-media").off();
 	// console.log('desktoplisters()')
+
+	if ($(this).next(".description").hasClass("hidden")) {
+		$(this).next(".description").removeClass("hidden");
+		$(this).next(".description").addClass("visible");
+	} else {
+		$(this).next(".description").removeClass("visible");
+		$(this).next(".description").addClass("hidden");
+	}
+
 	$(".responsive-media").each(function() {
+		var startingCoordinates = makeNewPosition($(this).parent().parent(), $(this).parent());
+
+		$(this).parent().css("top", startingCoordinates[0]+"px");
+		$(this).parent().css("left", startingCoordinates[1]+"px");
+
 		$(this).mouseenter(function() {
 			if ($(this).hasClass("vid")) {
 				this.play();
@@ -126,19 +145,18 @@ function desktopListeners() {
 			// $(this).parent().removeClass("floating-projects");
 			$(this).parent().stop();
 
-			var top = $(this).parent().parent().height()/2 - $(this).parent().height()/2 + 'px';
-			var left = $(this).parent().parent().width()/2 - $(this).parent().width()/2 + 'px';
+			// var top = $(this).parent().parent().height()/2 - $(this).parent().height()/2 + 'px';
+			// var left = $(this).parent().parent().width()/2 - $(this).parent().width()/2 + 'px';
 
 			$(this).parent().css("left", "0");
 
 			$(this).next(".description").removeClass("hidden");
 			$(this).next(".description").addClass("visible");
-
 		});
 
 		$(this).parent().mouseleave(function() {
 			if ($(this).children(".vid").length === 1) {
-				console.log("whoa");
+				// console.log("whoa");
 				// console.log("testing");
 				$(this).children(".vid")[0].pause();
 			}
@@ -164,6 +182,7 @@ function toAnimateOrNot(isDesktopVersion, numberOfMatches) {
 
 		$(".project-container").addClass("floating-projects");
 
+		desktopListeners();
 
 		animateDiv($('#a'));
 		animateDiv($('#b'));
@@ -178,7 +197,7 @@ function toAnimateOrNot(isDesktopVersion, numberOfMatches) {
 		animateDiv($('#k'));
 		animateDiv($('#l'));
 
-		desktopListeners();
+		// desktopListeners();
 	//   }, 1000);
 	}
 
