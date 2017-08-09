@@ -152,6 +152,8 @@ function desktopListeners() {
 
 			$(this).next(".description").removeClass("hidden");
 			$(this).next(".description").addClass("visible");
+
+			// $(this).next(".description").css("color", "red");
 		});
 
 		$(this).parent().mouseleave(function() {

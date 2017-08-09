@@ -135,6 +135,11 @@ body{
 	color: #242a2d;
 	background-color: white;
 
+	/*transition-property: color!important;
+	transition-timing-function: linear!important;
+	transition-duration: 2s!important;
+	transition-delay: 1s!important;*/
+
 	/*transition: padding 0s ease-out 0.4s;*/
 }
 .description:after, .description:before {
@@ -144,18 +149,43 @@ body{
 }
 
 .description.hidden {
-	transition: max-height 0.2s linear;
+	/*transition-property: max-height;*/
+	transition-timing-function: linear;
+	transition-duration: 0.2s;
+
+	/*transition-delay: 2s;*/
+
 	max-height: 0;
 
-	opacity: 0;
-	transition: opacity 0.2s linear;
-
 	overflow: hidden;
+	/*color: green;*/
 }
 .description.visible {
 	/* hange this number to whatever your tallest description is. Too low and words will get cut off. Too high and the transition won't be smooth. */
-	transition: max-height 0.4s linear;
+	/*transition-property: max-height;*/
+	transition-timing-function: linear;
+	transition-duration: 0.4s;
+
+	/*transition-delay: 2s;*/
+
 	max-height: 250px;
+
+	/*color: red;*/
+	/*transition-property: color!important;*/
+}
+@media(min-width: 992px) {
+	.description.hidden, .description.visible {
+		/*transition-property: max-height, color;*/
+		transition-delay: 0.5s;
+	}
+	.description.hidden {
+		color: transparent;
+	}
+
+	.description.visible {
+		/*transition-delay: 1s;*/
+		color: red;
+	}
 }
 
 .floating-projects {
