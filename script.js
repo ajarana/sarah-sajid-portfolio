@@ -60,19 +60,19 @@ function makeNewPosition($container, el) {
     return [nh, nw];
 }
 
-function animateDiv($target) {
+function animateFig($target) {
     var newq = makeNewPosition($target.parent(), $target);
     var oldq = $target.offset();
     var speed = calcSpeed([oldq.top, oldq.left], newq);
 	var isDesktopVersion = mediaQuery();
 
 	if (isDesktopVersion) {
-		// console.log("animateDiv was called recursively")
+		// console.log("animateFig was called recursively")
 		$target.animate({
 	        top: newq[0],
 	        left: newq[1]
 	    }, speed, function() {
-	        animateDiv($target);
+	        animateFig($target);
 	    });
 	}
 };
@@ -129,51 +129,90 @@ function desktopListeners() {
 		$(this).next(".description").addClass("hidden");
 	}
 
-	$(".responsive-media").each(function() {
-		var startingCoordinates = makeNewPosition($(this).parent().parent(), $(this).parent());
+	$(".project-container").each(function() {
 
-		$(this).parent().css("top", startingCoordinates[0]+"px");
-		$(this).parent().css("left", startingCoordinates[1]+"px");
+		var startingCoordinates = makeNewPosition($(this).parent(), $(this));
 
-		$(this).mouseenter(function() {
-			if ($(this).hasClass("vid")) {
-				this.play();
+		$(this).css("top", startingCoordinates[0]+"px");
+		$(this).css("left", startingCoordinates[1]+"px");
+
+		$(this).click(function() {
+
+			if (!$(this).hasClass("center-enlarged")) {
+
+				if ($(this).children().hasClass("vid")) {
+
+					$(this).children(".vid")[0].play();
+
+				}
+
+				$(this).addClass("center-enlarged");
+
+				$(this).stop();
+
+				$(this).css("top", "0");
+				$(this).css("left", "0");
+
+				$(this).children(".description").removeClass("hidden");
+				$(this).children(".description").addClass("visible");
+
+			} else {
+
+				if ($(this).children().hasClass("vid")) {
+
+					$(this).children(".vid")[0].pause();
+
+				}
+
+				$(this).removeClass("center-enlarged");
+
+				animateFig($(this));
+
+				$(this).children(".description").addClass("hidden");
+				$(this).children(".description").removeClass("visible");
+
 			}
 
-			$(this).parent().addClass("center-hover");
-
-			// $(this).parent().removeClass("floating-projects");
-			$(this).parent().stop();
-
-			// var top = $(this).parent().parent().height()/2 - $(this).parent().height()/2 + 'px';
-			// var left = $(this).parent().parent().width()/2 - $(this).parent().width()/2 + 'px';
-
-			$(this).parent().css("left", "0");
-
-			$(this).next(".description").removeClass("hidden");
-			$(this).next(".description").addClass("visible");
-
-			// $(this).next(".description").css("color", "red");
 		});
 
-		$(this).parent().mouseleave(function() {
-			if ($(this).children(".vid").length === 1) {
-				// console.log("whoa");
-				// console.log("testing");
-				$(this).children(".vid")[0].pause();
-			}
-
-			// $(this).parent().addClass("floating-projects");
-
-			$(this).removeClass("center-hover");
-
-			animateDiv($(this));
-
-			$(this).children(".responsive-media").next(".description").removeClass("visible");
-			$(this).children(".responsive-media").next(".description").addClass("hidden");
-
-		});
 	});
+	// $(".responsive-media").each(function() {
+	// 	var startingCoordinates = makeNewPosition($(this).parent().parent(), $(this).parent());
+	//
+	// 	$(this).parent().css("top", startingCoordinates[0]+"px");
+	// 	$(this).parent().css("left", startingCoordinates[1]+"px");
+	//
+	// 	$(this).mouseenter(function() {
+	// 		if ($(this).hasClass("vid")) {
+	// 			this.play();
+	// 		}
+	//
+	// 		$(this).parent().addClass("center-enlarged");
+	//
+	// 		$(this).parent().stop();
+	//
+	// 		$(this).parent().css("left", "0");
+	//
+	// 		$(this).next(".description").removeClass("hidden");
+	// 		$(this).next(".description").addClass("visible");
+	// 	});
+	//
+	// 	$(this).parent().mouseleave(function() {
+	// 		if ($(this).children(".vid").length === 1) {
+	// 			// console.log("whoa");
+	// 			// console.log("testing");
+	// 			$(this).children(".vid")[0].pause();
+	// 		}
+	//
+	// 		$(this).removeClass("center-enlarged");
+	//
+	// 		animateFig($(this));
+	//
+	// 		$(this).children(".responsive-media").next(".description").removeClass("visible");
+	// 		$(this).children(".responsive-media").next(".description").addClass("hidden");
+	//
+	// 	});
+	// });
 }
 
 function toAnimateOrNot(isDesktopVersion, numberOfMatches) {
@@ -186,18 +225,18 @@ function toAnimateOrNot(isDesktopVersion, numberOfMatches) {
 
 		desktopListeners();
 
-		animateDiv($('#a'));
-		animateDiv($('#b'));
-		animateDiv($('#c'));
-		// animateDiv($('#d'));
-		animateDiv($('#e'));
-		// animateDiv($('#f'));
-		animateDiv($('#g'));
-		animateDiv($('#h'));
-		animateDiv($('#i'));
-		animateDiv($('#j'));
-		animateDiv($('#k'));
-		animateDiv($('#l'));
+		animateFig($('#a'));
+		animateFig($('#b'));
+		animateFig($('#c'));
+		// animateFig($('#d'));
+		animateFig($('#e'));
+		// animateFig($('#f'));
+		animateFig($('#g'));
+		animateFig($('#h'));
+		animateFig($('#i'));
+		animateFig($('#j'));
+		animateFig($('#k'));
+		animateFig($('#l'));
 
 		// desktopListeners();
 	//   }, 1000);
