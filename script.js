@@ -225,18 +225,32 @@ function toAnimateOrNot(isDesktopVersion, numberOfMatches) {
 
 		desktopListeners();
 
-		animateFig($('#a'));
-		animateFig($('#b'));
-		animateFig($('#c'));
-		// animateFig($('#d'));
-		animateFig($('#e'));
-		// animateFig($('#f'));
-		animateFig($('#g'));
-		animateFig($('#h'));
-		animateFig($('#i'));
-		animateFig($('#j'));
-		animateFig($('#k'));
-		animateFig($('#l'));
+		setTimeout(function() {
+			animateFig($('#a'));
+			animateFig($('#b'));
+			animateFig($('#c'));
+			// animateFig($('#d'));
+			animateFig($('#e'));
+			// animateFig($('#f'));
+			animateFig($('#g'));
+			animateFig($('#h'));
+			animateFig($('#i'));
+			animateFig($('#j'));
+			animateFig($('#k'));
+			animateFig($('#l'));
+		}, 750)
+		// animateFig($('#a'));
+		// animateFig($('#b'));
+		// animateFig($('#c'));
+		// // animateFig($('#d'));
+		// animateFig($('#e'));
+		// // animateFig($('#f'));
+		// animateFig($('#g'));
+		// animateFig($('#h'));
+		// animateFig($('#i'));
+		// animateFig($('#j'));
+		// animateFig($('#k'));
+		// animateFig($('#l'));
 
 		// desktopListeners();
 	//   }, 1000);
